@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Category, Product } from '../interfaces';
+import { Product } from '../interfaces';
 
 const productSchema = new mongoose.Schema<Product>(
     {
@@ -9,7 +9,6 @@ const productSchema = new mongoose.Schema<Product>(
         category: {
             type: Number,
             required: true,
-            enum: Object.values(Category)
         },
         stockQuantity: { type: Number, required: true },
         imageUrl: { type: String },

@@ -1,4 +1,4 @@
-import { Order } from "../interfaces";
+import { Order, StatusOrder } from "../interfaces";
 import { OrderRepository } from "../repository";
 
 export class OrderService {
@@ -24,7 +24,7 @@ export class OrderService {
         return order;
     }
 
-    async updateOrderStatus(id: string, status: string): Promise<Order | null> {
+    async updateOrderStatus(id: string, status: StatusOrder): Promise<Order | null> {
         const updatedOrder = await this.orderRepository.update(id, { status });
         if (!updatedOrder) {
             throw new Error(`Pedido com ID ${id} não encontrado para atualizar`);
@@ -44,7 +44,7 @@ export class OrderService {
         return this.orderRepository.findByClientId(clientId);
     }
 
-    async getOrdersByStatus(status: string): Promise<Order[]> {
+    async getOrdersByStatus(status: StatusOrder): Promise<Order[]> {
         return this.orderRepository.findByStatus(status);
     }
 }

@@ -2,8 +2,11 @@ import express, { Application } from "express";
 import cors from "cors";
 import helmet from "helmet";
 import dotenv from "dotenv";
-import { ClientRouter } from "./routes";
+import morgan from "morgan";
+
+import { AddressRouter, CartRouter, ClientRouter, OrderRouter, ProductRouter } from "./routes";
 import { ErrorHandler } from "./helpers";
+import { Database } from "./config";
 
 export class App {
     private readonly app: Application;
@@ -11,31 +14,37 @@ export class App {
 
     constructor() {
         this.app = express();
-        this.port = parseInt(process.env.PORT || "3000");
-        this.init();
+        this.port = parseInt(process.env.PORT ?? "3000");
     }
 
-    private init() {
-        this.initConfig();
+    async init() {
+        dotenv.config();
+        await this.initConfig();
         this.initMiddlewares();
         this.initRoutes();
         this.initErrorHandling();
     }
 
-    private initConfig() {
-        // new Database();
+    private async initConfig() {
+        await new Database().connect();
     }
 
     private initMiddlewares() {
+        this.app.use(morgan('dev'));
         this.app.use(cors());
         this.app.use(helmet());
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: true }));
-        dotenv.config();
     }
 
     private initRoutes() {
-        this.app.use("/api/v1/users", new ClientRouter().router);
+        const v1Router = express.Router();
+        v1Router.use("/address", new AddressRouter().router);
+        v1Router.use("/cart", new CartRouter().router);
+        v1Router.use("/client", new ClientRouter().router);
+        v1Router.use("/order", new OrderRouter().router);
+        v1Router.use("/product", new ProductRouter().router);
+        this.app.use("/api/v1", v1Router);
     }
 
     private initErrorHandling() {
@@ -49,3 +58,4 @@ export class App {
         });
     }
 }
+

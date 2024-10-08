@@ -10,7 +10,7 @@ export class CartService {
 
     async createCart(cartData: Cart): Promise<Cart> {
 
-        cartData.totalAmount = cartData.products.reduce((total, product) => total + product.price * product.stockQuantity, 0);
+        // cartData.totalAmount = cartData.products.reduce((total, product) => total + product.price * product.stockQuantity, 0);
         return this.cartRepository.create(cartData);
     }
 

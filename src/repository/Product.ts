@@ -1,4 +1,4 @@
-import { Product } from "../interfaces";
+import { Category, Product } from "../interfaces";
 import { ProductModel } from "../models";
 import { GenericRepository } from "./Generic";
 
@@ -7,7 +7,7 @@ export class ProductRepository extends GenericRepository<Product> {
         super(ProductModel);
     }
 
-    async findByCategory(category: string): Promise<Product[]> {
+    async findByCategory(category: Category): Promise<Product[]> {
         return ProductModel.find({ category }).exec();
     }
 

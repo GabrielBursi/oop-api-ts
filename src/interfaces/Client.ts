@@ -7,6 +7,4 @@ export interface Client extends Common {
     passwordHash: string; 
     address: Address
     phoneNumber: string;
-    createdAt: Date;
-    updatedAt: Date;
 }

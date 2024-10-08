@@ -1,9 +1,9 @@
 import mongoose, { Schema } from "mongoose";
-import { Order, Payment, StatusOrder } from '../interfaces';
+import { Order } from '../interfaces';
 
 const orderSchema = new mongoose.Schema<Order>(
     {
-        clientId: {
+        client: {
             type: String,
             ref: 'Client',
             required: true,
@@ -19,12 +19,10 @@ const orderSchema = new mongoose.Schema<Order>(
         status: {
             type: Number,
             required: true,
-            enum: Object.values(StatusOrder)
         },
         paymentMethod: {
             type: Number,
             required: true,
-            enum: Object.values(Payment)
         },
         shippingAddress: {
             type: Schema.Types.ObjectId,

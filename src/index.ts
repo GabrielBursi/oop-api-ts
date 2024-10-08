@@ -3,4 +3,4 @@ import { App } from "./app";
 
 const app = new App();
 
-app.listen();
+app.init().then(() => app.listen())

@@ -3,8 +3,8 @@ import { Cart } from '../interfaces';
 
 const cartSchema = new Schema<Cart>(
     {
-        clientId: {
-            type: String,
+        client: {
+            type: Schema.Types.ObjectId,
             ref: 'Client',
             required: true,
         },

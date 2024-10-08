@@ -1,4 +1,4 @@
-import { Product } from "../interfaces";
+import { Category, Product } from "../interfaces";
 import { ProductRepository } from "../repository";
 
 export class ProductService {
@@ -40,7 +40,7 @@ export class ProductService {
         return deletedProduct;
     }
 
-    async getProductsByCategory(category: string): Promise<Product[]> {
+    async getProductsByCategory(category: Category): Promise<Product[]> {
         return this.productRepository.findByCategory(category);
     }
 

@@ -1,8 +1,9 @@
+import { Client } from "./Client";
 import { Common } from "./Common";
 import { Product } from "./Product";
 
 export interface Cart extends Common {
-    clientId: string; 
+    client: Client; 
     products: Product[];
     totalAmount: number; 
     createdAt: Date;
